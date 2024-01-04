@@ -26,6 +26,9 @@ class SeriesController extends Controller
 
   public function store(Request $request)
   {
+    $request->validate([
+      'nome' => ['required', 'min:3'],
+    ]);
     $series = Serie::create($request->all());
     return redirect('/series')->with('message.success', "Series '$series->nome' was save with success!");
   }
@@ -38,9 +41,9 @@ class SeriesController extends Controller
 
   public function update(Serie $series, Request $request)
   {
-    $newName = $request->input('nome');
     $oldName = $series->nome;
-    $series->update(['nome' => $newName]);
-    return redirect('/series')->with('message.success', "Series was update from '$oldName' to '$newName' successfully!");
+    $series->fill($request->all());
+    $series->save();
+    return redirect('/series')->with('message.success', "Series was update from '$oldName' to '$series->nome' successfully!");
   }
 }
