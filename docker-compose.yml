@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - mariadb
+    volumes:
+      - ./:/var/www/html/controle-series
+      - ./.docker/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    networks:
+      - internal
+
+  mariadb:
+    container_name: "mariadb"
+    image: mariadb:11.0.2
+    volumes:
+      - ./.docker/database/${DB_DATABASE}:/var/lib/mysql/${DB_DATABASE}
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_USER: ${DB_USERNAME}
+    networks:
+      - internal
+
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    working_dir: /var/www/html/controle-series
+    image: node:14
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/var/www/html/controle-series
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
