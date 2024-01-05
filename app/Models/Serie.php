@@ -13,7 +13,7 @@ class Serie extends Model
 
     public function seasons()
     {
-        return $this->hasMany(Season::class);
+        return $this->hasMany(Season::class, 'series_id');
     }
 
     public function episodes()
