@@ -1,8 +1,8 @@
 <form action="{{ $action }}" method='post'>
     @csrf
-    @isset($update)
+    @if($update === true)
       @method('PUT')
-    @endisset
+    @endif
     <div class="mb-3">
       <label for="nome" class="form-label">Série: </label>
       <input 
