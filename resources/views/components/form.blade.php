@@ -7,7 +7,7 @@
       <label for="nome" class="form-label">Série: </label>
       <input 
         type="text"
-        name="nome"
+        name="name"
         class="form-control"
         @isset($name)value="{{$name}}"@endisset>
       <button type="submit" class="btn btn-primary mt-2">Salvar</button>

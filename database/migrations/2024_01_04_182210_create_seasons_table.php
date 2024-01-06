@@ -16,7 +16,7 @@ class CreateSeasonsTable extends Migration
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('number');
-            $table->foreignId('series_id')->constrained('series');
+            $table->foreignId('series_id')->constrained('series')->onDelete('cascade');
             $table->timestamps();
         });
     }

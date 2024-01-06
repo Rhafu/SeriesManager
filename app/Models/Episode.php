@@ -18,6 +18,6 @@ class Episode extends Model
 
     public function series()
     {
-        return $this->belongsTo(Serie::class);
+        return $this->belongsTo(Series::class);
     }
 }

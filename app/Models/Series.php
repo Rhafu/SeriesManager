@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Serie extends Model
+class Series extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome'];
+    protected $fillable = ['name'];
     protected $with = ['seasons'];
 
     public function seasons()
@@ -20,7 +20,7 @@ class Serie extends Model
 
     protected static function booted(){
         self::addGlobalScope('ordered', function (Builder $queryBuilder) {
-            $queryBuilder->orderBy('nome');
+            $queryBuilder->orderBy('name');
         });
     }
 }

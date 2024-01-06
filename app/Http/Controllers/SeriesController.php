@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriesFormRequest;
-use App\Models\Serie;
+use App\Models\Series;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller
 {
   public function index(Request $request)
   {
-    $series = Serie::all();
+    $series = Series::all();
     $successMessage = session('message.success');
     return view('series.index')->with('series', $series)->with('successMessage', $successMessage);
   }
@@ -20,29 +20,28 @@ class SeriesController extends Controller
     return view('series.create');
   }
 
-  public function edit(Serie $series)
+  public function edit(Series $series)
   {
-    dd($series->seasons);
     return view('series.edit')->with('series', $series);
   }
 
   public function store(SeriesFormRequest $request)
   {
-    $series = Serie::create($request->all());
-    return redirect('/series')->with('message.success', "Series '$series->nome' was save with success!");
+    $series = Series::create($request->all());
+    return redirect('/series')->with('message.success', "Series '$series->name' was save with success!");
   }
 
-  public function destroy(Serie $series, Request $request)
+  public function destroy(Series $series, Request $request)
   {
     $series->delete();
-    return redirect('/series')->with('message.success', "Series '$series->nome' was remove with success!");
+    return redirect('/series')->with('message.success', "Series '$series->name' was remove with success!");
   }
 
-  public function update(Serie $series, SeriesFormRequest $request)
+  public function update(Series $series, SeriesFormRequest $request)
   {
-    $oldName = $series->nome;
+    $oldName = $series->name;
     $series->fill($request->all());
     $series->save();
-    return redirect('/series')->with('message.success', "Series was update from '$oldName' to '$series->nome' successfully!");
+    return redirect('/series')->with('message.success', "Series was update from '$oldName' to '$series->name' successfully!");
   }
 }

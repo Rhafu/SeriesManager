@@ -10,7 +10,7 @@
   <ul class="list-group">
     @foreach ($series as $serie)
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      {{$serie->nome}}
+      {{$serie->name}}
       <div class="d-flex">
         <a class="mx-1 btn btn-success btn-sm" href="/series/{{ $serie->id }}/edit">Edit</a>
         <form action="/series/{{ $serie->id }}" method="post">
