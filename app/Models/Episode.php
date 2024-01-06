@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\SeriesController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +9,7 @@ class Episode extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = ['number'];
 
     public function season()
     {
